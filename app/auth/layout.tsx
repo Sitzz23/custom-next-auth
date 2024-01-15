@@ -1,15 +1,11 @@
 import Image from "next/image";
 import bg from "@/app/bg.jpeg";
-import { Lexend_Deca, Manrope } from "next/font/google";
+import { Manrope } from "next/font/google";
 import { cn } from "@/lib/utils";
 
-const font = Lexend_Deca({
-  subsets: ["latin"],
-  weight: ["700"],
-});
 const body = Manrope({
   subsets: ["latin"],
-  weight: ["400"],
+  weight: ["400", "600"],
 });
 
 const AuthLayout = ({ children }: { children: React.ReactNode }) => {
