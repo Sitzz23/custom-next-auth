@@ -18,8 +18,14 @@ import FormError from "../FormError";
 import FormSuccess from "../FormSuccess";
 import Login from "@/actions/Login";
 import { useState, useTransition } from "react";
+import { useSearchParams } from "next/navigation";
 
 const LoginForm = () => {
+  const searchParams = useSearchParams();
+  const urlError =
+    searchParams.get("error") === "OAuthAccountNotLinked"
+      ? "Email already in use with another account"
+      : "";
   const [isPending, startTransition] = useTransition();
   const [error, setError] = useState<string | undefined>("");
   const [success, setSuccess] = useState<string | undefined>("");
@@ -38,8 +44,8 @@ const LoginForm = () => {
 
     startTransition(() => {
       Login(values).then((data) => {
-        setError(data.error);
-        setSuccess(data.success);
+        setError(data?.error);
+        // setSuccess(data?.success);
       });
     });
   };
@@ -92,7 +98,7 @@ const LoginForm = () => {
                 )}
               />
             </div>
-            <FormError message={error} />
+            <FormError message={error || urlError} />
             <FormSuccess message={success} />
             <Button
               type="submit"
